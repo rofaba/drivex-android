@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#333333"
+    android:padding="32dp">
+
+    <TextView
+        android:id="@+id/LoginTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Login"
+        android:textColor="#FFFFFF"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvUserLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="User"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/cardUser"
+        app:layout_constraintStart_toStartOf="@+id/cardUser" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardUser"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="90dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoginTitle">
+
+        <EditText
+            android:id="@+id/LoginUser"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:hint="Value"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColor="#000000"
+            android:textColorHint="#E0E0E0"
+            android:textSize="16sp" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvPasswordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        android:text="Password"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/cardPassword"
+        app:layout_constraintStart_toStartOf="@+id/cardPassword" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardPassword"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="60dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardUser">
+
+        <EditText
+            android:id="@+id/LoginPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:hint="Value"
+            android:inputType="textPassword"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColor="#000000"
+            android:textColorHint="#E0E0E0"
+            android:textSize="16sp" />
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#8B2E2E"
+        android:text="Login"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintStart_toStartOf="@+id/cardPassword"
+        app:layout_constraintTop_toBottomOf="@+id/cardPassword" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardSocial"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="#D6D6D6"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/btnGoogle"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:contentDescription="Google"
+                android:src="@drawable/google"
+                tools:src="@drawable/google" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#000000" />
+
+            <ImageView
+                android:id="@+id/btnFacebook"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:contentDescription="Facebook"
+                android:src="@drawable/facebook"
+                tools:src="@drawable/facebook" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#000000" />
+
+            <ImageView
+                android:id="@+id/btnPinterest"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:contentDescription="Pinterest"
+                android:src="@drawable/pinterest"
+                tools:src="@drawable/pinterest" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/loginFooter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Don't have an account yet? Sign up."
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

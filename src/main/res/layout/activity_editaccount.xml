@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#333333"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="32dp">
+
+        <TextView
+            android:id="@+id/EditAcTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-light"
+            android:text="My account"
+            android:textColor="#FFFFFF"
+            android:textSize="42sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvEmailLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Email:"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EditAcTitle" />
+
+        <TextView
+            android:id="@+id/EdAcEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="franciscoromero@gmail.com"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvEmailLabel" />
+
+        <TextView
+            android:id="@+id/tvUserLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="User:"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EdAcEmail" />
+
+        <TextView
+            android:id="@+id/EdAcName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Francisco"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvUserLabel" />
+
+        <TextView
+            android:id="@+id/tvChangePwTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Change password"
+            android:textColor="#FFFFFF"
+            android:textSize="38sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EdAcName" />
+
+        <TextView
+            android:id="@+id/tvCurrentPwLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Current Password"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvChangePwTitle" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardCurrentPw"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCurrentPwLabel">
+
+            <EditText
+                android:id="@+id/Currentpass"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvNewPwLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="New Password"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardCurrentPw" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardNewPw"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvNewPwLabel">
+
+            <EditText
+                android:id="@+id/Newpass"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:hint="Value"
+                android:textColorHint="#E0E0E0"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChangePassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:backgroundTint="#8B2E2E"
+            android:text="Change Password"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            app:cornerRadius="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardNewPw"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

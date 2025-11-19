@@ -34,7 +34,13 @@ class CarViewHolder (view: View): RecyclerView.ViewHolder(view), View.OnCreateCo
         p2: ContextMenu.ContextMenuInfo?
     ) {
         p0!!.setHeaderTitle(binding.name.text)
-        p0.add(this.adapterPosition, 0, 0, "Eliminar")
-        p0.add(this.adapterPosition, 1 ,0, "Editar")
+        p0.add(this.adapterPosition, 0, 0, "Account")
+        p0.add(this.adapterPosition, 1 ,0, "Favourites")
+        p0.add(this.adapterPosition, 2 ,0, "Search")
+        p0.add(this.adapterPosition, 3 ,0, "Messages")
+        p0.add(this.adapterPosition, 4 ,0, "My ads")
+        p0.add(this.adapterPosition, 5 ,0, "Sell")
+        p0.add(this.adapterPosition, 6 ,0, "Log off")
+        p0.add(this.adapterPosition, 7 ,0, "Home")
     }
 }
