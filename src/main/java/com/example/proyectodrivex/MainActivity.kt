@@ -17,6 +17,7 @@ import com.example.proyectodrivex.Model.Car
 import com.example.proyectodrivex.R
 import com.example.proyectodrivex.Views.Editaccount
 import com.example.proyectodrivex.Views.Login
+import com.example.proyectodrivex.Views.Userview
 import com.example.proyectodrivex.databinding.ActivityMainBinding
 
 
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         binding.header.btnLogin.setOnClickListener {
             isUserLoggedIn = true
             updateHeadervisibility()
-            Toast.makeText(this, "Sesión Iniciada", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Log in successfully", Toast.LENGTH_SHORT).show()
         }
 
         binding.header.btnMenuDropdown.setOnClickListener { view ->
@@ -92,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
         viewMenu.findViewById<View>(R.id.menuAccount).setOnClickListener {
             miPopup?.dismiss()
-            val intent = Intent(this, Editaccount::class.java)
+            val intent = Intent(this, Userview::class.java)
             startActivity(intent)
         }
 
