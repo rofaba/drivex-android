@@ -1,7 +1,9 @@
-package com.example.proyectodrivex
+package com.example.proyectodrivex.Controllers
+
 import android.view.ContextMenu
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.example.proyectodrivex.Model.Car
 import com.example.proyectodrivex.databinding.ActivityCarBinding
 import com.squareup.picasso.Picasso
 

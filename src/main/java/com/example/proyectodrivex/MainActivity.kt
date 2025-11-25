@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.proyectodrivex.Controllers.CarAdapter
+import com.example.proyectodrivex.Model.Car
 import com.example.proyectodrivex.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

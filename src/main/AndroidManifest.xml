@@ -12,22 +12,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoDriveX">
         <activity
-            android:name=".User"
+            android:name=".Model.User"
             android:exported="false" />
         <activity
-            android:name=".Editaccount"
+            android:name=".Views.Editaccount"
             android:exported="false" />
         <activity
-            android:name=".Register"
+            android:name=".Views.Register"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".Views.Login"
             android:exported="false" />
         <activity
-            android:name=".Details"
+            android:name=".Views.Details"
             android:exported="false" />
         <activity
-            android:name=".Car"
+            android:name=".Model.Car"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

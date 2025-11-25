@@ -1,4 +1,4 @@
-package com.example.proyectodrivex
+package com.example.proyectodrivex.Views
 
 import android.os.Build
 import android.os.Bundle
@@ -7,9 +7,9 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.proyectodrivex.Model.Car
 import com.example.proyectodrivex.databinding.ActivityDetailsBinding
 import com.squareup.picasso.Picasso
-
 
 class Details : AppCompatActivity() {
     private lateinit var binding: ActivityDetailsBinding

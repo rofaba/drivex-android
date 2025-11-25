@@ -1,11 +1,14 @@
-package com.example.proyectodrivex
+package com.example.proyectodrivex.Controllers
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.proyectodrivex.Controllers.CarViewHolder
+import com.example.proyectodrivex.Model.Car
+import com.example.proyectodrivex.R
 
 class CarAdapter(private var carsList: List<Car>,
-                   private val onClickListener: (Car)-> Unit): RecyclerView.Adapter<CarViewHolder>() {
+                 private val onClickListener: (Car)-> Unit): RecyclerView.Adapter<CarViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
