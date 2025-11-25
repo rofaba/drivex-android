@@ -27,22 +27,13 @@ class CarViewHolder (view: View): RecyclerView.ViewHolder(view), View.OnCreateCo
         itemView.setOnCreateContextMenuListener(this)
     }
 
-
-
-
     override fun onCreateContextMenu(
-        p0: ContextMenu?,
-        p1: View?,
-        p2: ContextMenu.ContextMenuInfo?
+        menu: ContextMenu?,
+        v: View?,
+        menuInfo: ContextMenu.ContextMenuInfo?
     ) {
-        p0!!.setHeaderTitle(binding.name.text)
-        p0.add(this.adapterPosition, 0, 0, "Account")
-        p0.add(this.adapterPosition, 1 ,0, "Favourites")
-        p0.add(this.adapterPosition, 2 ,0, "Search")
-        p0.add(this.adapterPosition, 3 ,0, "Messages")
-        p0.add(this.adapterPosition, 4 ,0, "My ads")
-        p0.add(this.adapterPosition, 5 ,0, "Sell")
-        p0.add(this.adapterPosition, 6 ,0, "Log off")
-        p0.add(this.adapterPosition, 7 ,0, "Home")
+        TODO("Not yet implemented")
     }
+
+
 }
