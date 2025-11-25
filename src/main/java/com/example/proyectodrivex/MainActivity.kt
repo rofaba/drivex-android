@@ -11,6 +11,8 @@ import com.example.proyectodrivex.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var  layoutManager: RecyclerView.LayoutManager
+    private lateinit var listcars: MutableList<Car>
+    private lateinit var adapter: CarAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -6,9 +6,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logosinfondo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logosinfondo"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoDriveX">
         <activity
@@ -27,7 +27,7 @@
             android:name=".Details"
             android:exported="false" />
         <activity
-            android:name=".Libro"
+            android:name=".Car"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
