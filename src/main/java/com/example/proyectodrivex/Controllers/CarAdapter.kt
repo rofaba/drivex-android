@@ -3,7 +3,6 @@ package com.example.proyectodrivex.Controllers
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.proyectodrivex.Controllers.CarViewHolder
 import com.example.proyectodrivex.Model.Car
 import com.example.proyectodrivex.R
 

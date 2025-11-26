@@ -14,8 +14,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectodrivex.Controllers.CarAdapter
 import com.example.proyectodrivex.Model.Car
+import com.example.proyectodrivex.Model.User
 import com.example.proyectodrivex.R
-import com.example.proyectodrivex.Views.Editaccount
 import com.example.proyectodrivex.Views.Login
 import com.example.proyectodrivex.Views.Userview
 import com.example.proyectodrivex.databinding.ActivityMainBinding
@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var layoutManager: RecyclerView.LayoutManager
     private lateinit var listcars: MutableList<Car>
+    private lateinit var listusers: MutableList<User>
     private lateinit var adapter: CarAdapter
 
     private var miPopup: PopupWindow? = null
