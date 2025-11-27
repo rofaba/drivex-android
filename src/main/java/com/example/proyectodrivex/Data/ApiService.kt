@@ -11,4 +11,5 @@ interface ApiService {
 
     @GET("api/users")
     suspend fun getAllUsers(): Response<List<User>>
+
 }
