@@ -35,6 +35,6 @@ class Details : AppCompatActivity() {
         binding.Dtdescription.text= "${car.description}"
         binding.Dtyear.text= "Year: ${car.year}"
         binding.Dtprice.text="Price: ${car.price}"
-        binding.DtMileage.text="Mileage: ${car.km}"
+        binding.DtMileage.text="Mileage: ${car.mileage}"
     }
 }

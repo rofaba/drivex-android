@@ -2,6 +2,6 @@ package com.example.proyectodrivex.Model
 
 import java.io.Serializable
 
-data class Car( val id: Int,val image: String, val name: String,val price: Double, val hp: Int, val cm3: Int, val brand: String, val model: String, val colour: String,
-                val description: String, val year: Int, val fueltype: String, val km: Int):
+data class Car( val id: Int,val image: String?= "", val name: String,val price: Double, val hp: Int, val cm3: Int, val brand: String, val model: String, val colour: String,
+                val description: String, val year: Int, val fuel_type: String, val mileage: Int):
     Serializable
