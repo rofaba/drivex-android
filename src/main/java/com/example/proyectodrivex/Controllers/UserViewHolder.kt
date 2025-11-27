@@ -17,10 +17,10 @@ class UserViewHolder (view: View): RecyclerView.ViewHolder(view), View.OnCreateC
     fun render(item: User, onClickListener: (User) -> Unit) {
         binding.AccEmail.text = item.email
         Picasso.get()
-            .load(item!!.profileimage)
+            .load(item!!.image)
             .into(binding.AccProfImage)
-        binding.AccName.text = item.user
-        binding.AccNamebig.text = item.user
+        binding.AccName.text = item.name
+        binding.AccNamebig.text = item.name
         binding.Acclogout.setOnClickListener {}
     }
 

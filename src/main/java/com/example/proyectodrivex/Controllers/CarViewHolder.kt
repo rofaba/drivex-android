@@ -9,6 +9,8 @@ import com.squareup.picasso.Picasso
 class CarViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val binding = ActivityCarBinding.bind(view)
+
+    // Base URL por si acaso la ruta viene relativa
     private val BASE_URL = "https://drivex-backend-production.up.railway.app"
 
     fun render(car: Car, onClickListener: (Car) -> Unit) {
@@ -17,25 +19,26 @@ class CarViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         binding.km.text = "${car.km ?: 0} km"
         binding.hp.text = "${car.hp ?: 0} hp"
 
-        // LÓGICA NUEVA:
-        // Verificamos si la lista de imágenes existe y no está vacía
+        // Limpiamos la imagen anterior por si acaso el reciclado de vistas falla
+        binding.image.setImageDrawable(null)
+
+        // Solo intentamos cargar si hay imágenes en la lista del JSON
         if (!car.images.isNullOrEmpty()) {
+            val urlFromJson = car.images[0].imageUrl
 
-            // Cogemos la primera imagen de la lista (index 0)
-            val firstImage = car.images[0].imageUrl
+            // Lógica: Si es absoluta (https://...) la usa, si es relativa (/images...) le pega la base
+            val finalUrl = if (urlFromJson.startsWith("http")) {
+                urlFromJson
+            } else {
+                BASE_URL + urlFromJson
+            }
 
-            val fullUrl = BASE_URL + firstImage
-
+            // Picasso carga directamenta la URL sin placeholders ni errores locales
             Picasso.get()
-                .load(fullUrl)
+                .load(finalUrl)
                 .fit()
                 .centerCrop()
-                .placeholder(android.R.drawable.ic_menu_gallery)
-                .error(android.R.drawable.stat_notify_error)
                 .into(binding.image)
-        } else {
-            // Imagen por defecto si la lista está vacía
-            binding.image.setImageResource(android.R.drawable.ic_menu_camera)
         }
 
         itemView.setOnClickListener {
