@@ -1,3 +1,5 @@
+package com.example.proyectodrivex
+
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -11,14 +13,16 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectodrivex.Controllers.CarAdapter
+import com.example.proyectodrivex.Data.CarProvider
 import com.example.proyectodrivex.Model.Car
 import com.example.proyectodrivex.Model.User
-import com.example.proyectodrivex.R
 import com.example.proyectodrivex.Views.Login
 import com.example.proyectodrivex.Views.Userview
 import com.example.proyectodrivex.databinding.ActivityMainBinding
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -39,7 +43,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.rvPrincipal.setHasFixedSize(true)
+        layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        binding.rvPrincipal.layoutManager = layoutManager
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -48,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         setupHeaderInteractions()
+        loadData()
     }
 
     private fun setupHeaderInteractions() {
@@ -139,5 +145,27 @@ class MainActivity : AppCompatActivity() {
         }
 
         miPopup?.showAsDropDown(anchorView, -20, 10)
+    }
+
+    private fun loadData() {
+        val carProvider = CarProvider()
+
+        lifecycleScope.launch {
+            val cars = carProvider.getCars()
+
+            if (cars.isNotEmpty()) {
+
+                adapter = CarAdapter(cars.toMutableList()) { car ->
+                    val intent = Intent(this@MainActivity, com.example.proyectodrivex.Views.Details::class.java)
+                    intent.putExtra("car", car)
+                    startActivity(intent)
+                }
+
+                binding.rvPrincipal.adapter = adapter
+                listcars = cars.toMutableList()
+            } else {
+                Toast.makeText(this@MainActivity, "Error cargando datos", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

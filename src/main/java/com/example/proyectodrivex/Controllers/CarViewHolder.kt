@@ -7,33 +7,27 @@ import com.example.proyectodrivex.Model.Car
 import com.example.proyectodrivex.databinding.ActivityCarBinding
 import com.squareup.picasso.Picasso
 
-class CarViewHolder (view: View): RecyclerView.ViewHolder(view), View.OnCreateContextMenuListener {
 
-        private val binding = ActivityCarBinding.bind(view)
+class CarViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
+    private val binding = ActivityCarBinding.bind(view)
 
+    fun render(car: Car, onClickListener: (Car) -> Unit) {
+        binding.name.text = "${car.brand} ${car.model}"
+        binding.price.text = "${car.price} €"
+        binding.km.text = "${car.km} km"
+        binding.hp.text = "${car.hp} hp"
 
-    fun render(item: Car, onClickListener: (Car)-> Unit){
-        binding.name.text=item.name
-        Picasso.get()
-            .load(item!!.image)
-            .into(binding.image)
-        binding.price.text= item.price.toString()
-        binding.km.text= item.km.toString()
-        binding.hp.text= item.hp.toString()
-        itemView.setOnClickListener {
-            onClickListener(item)
+        if (car.image.isNotEmpty()) {
+            Picasso.get()
+                .load(car.image)
+                .fit()
+                .centerCrop()
+                .into(binding.image)
         }
-        itemView.setOnCreateContextMenuListener(this)
+
+        itemView.setOnClickListener {
+            onClickListener(car)
+        }
     }
-
-    override fun onCreateContextMenu(
-        menu: ContextMenu?,
-        v: View?,
-        menuInfo: ContextMenu.ContextMenuInfo?
-    ) {
-        TODO("Not yet implemented")
-    }
-
-
 }

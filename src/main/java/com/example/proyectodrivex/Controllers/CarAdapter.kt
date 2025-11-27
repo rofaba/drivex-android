@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectodrivex.Model.Car
 import com.example.proyectodrivex.R
 
-class CarAdapter(private var carsList: List<Car>,
-                 private val onClickListener: (Car)-> Unit): RecyclerView.Adapter<CarViewHolder>() {
+class CarAdapter(
+    private val carList: List<Car>,
+    private val onClickListener: (Car) -> Unit
+) : RecyclerView.Adapter<CarViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -15,18 +17,9 @@ class CarAdapter(private var carsList: List<Car>,
     }
 
     override fun onBindViewHolder(holder: CarViewHolder, position: Int) {
-        val item = carsList[position]
+        val item = carList[position]
         holder.render(item, onClickListener)
     }
 
-    override fun getItemCount(): Int {
-        return carsList.size
-    }
-
-    fun setFilteredList(mList: MutableList<Car>){
-        notifyItemRangeRemoved(0, mList.size)
-        carsList = mList
-        notifyItemRangeInserted(0, mList.size)
-    }
-
+    override fun getItemCount(): Int = carList.size
 }
