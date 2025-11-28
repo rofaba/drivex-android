@@ -21,7 +21,9 @@ import com.example.proyectodrivex.Data.CarProvider
 import com.example.proyectodrivex.Model.Car
 import com.example.proyectodrivex.Model.User
 import com.example.proyectodrivex.Views.Details
+import com.example.proyectodrivex.Views.Favourites
 import com.example.proyectodrivex.Views.Login
+import com.example.proyectodrivex.Views.Search
 import com.example.proyectodrivex.Views.Userview
 import com.example.proyectodrivex.databinding.ActivityMainBinding
 import com.squareup.picasso.Picasso
@@ -161,13 +163,17 @@ class MainActivity : AppCompatActivity() {
         // 2. Favourites -> (Solo mensaje por ahora)
         viewMenu.findViewById<View>(R.id.menuFavourites).setOnClickListener {
             miPopup?.dismiss()
-            Toast.makeText(this, "Favourites", Toast.LENGTH_SHORT).show()
+            // CAMBIO AQUÍ: Navegar a FavouritesActivity
+            val intent = Intent(this, Favourites::class.java)
+            startActivity(intent)
         }
 
         // 3. Search -> (Solo mensaje por ahora)
         viewMenu.findViewById<View>(R.id.menuSearch).setOnClickListener {
             miPopup?.dismiss()
-            Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(this, Search::class.java)
+            startActivity(intent)
         }
 
         // 4. Close Session -> Logout

@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/logosinfondo"
         android:label="@string/app_name"
         android:roundIcon="@drawable/logosinfondo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ProyectoDriveX">
+        android:theme="@style/Theme.ProyectoDriveX"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".Data.Favourites"
+            android:exported="false" />
+        <activity
+            android:name=".Views.Search"
+            android:exported="false" />
         <activity
             android:name=".Model.User"
             android:exported="false" />
