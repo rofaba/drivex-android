@@ -13,7 +13,8 @@
         android:roundIcon="@drawable/logosinfondo"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoDriveX"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
         <activity
             android:name=".Data.Favourites"
             android:exported="false" />

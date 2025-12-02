@@ -1,12 +1,15 @@
 package com.example.proyectodrivex
+
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -26,8 +29,13 @@ import com.example.proyectodrivex.Views.Login
 import com.example.proyectodrivex.Views.Search
 import com.example.proyectodrivex.Views.Userview
 import com.example.proyectodrivex.databinding.ActivityMainBinding
+import com.squareup.picasso.Callback
+import com.squareup.picasso.NetworkPolicy
+import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,9 +47,11 @@ class MainActivity : AppCompatActivity() {
     private var miPopup: PopupWindow? = null
     private var isUserLoggedIn = false
 
-    // Variables de usuario y URL base
     private var currentUser: User? = null
-    private val BASE_URL = "https://drivex-backend-production.up.railway.app"
+    private val BASE_URL = "https://drivex-backend-lpl0.onrender.com"
+
+    // ESTA ES LA URL QUE DABA PROBLEMAS
+    private val URL_DIFICIL = "https://darkorchid-chicken-425842.hostingersite.com/images/users/defaultuser.jpg"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +60,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Configuración RecyclerView
         layoutManager = LinearLayoutManager(this)
         binding.rvPrincipal.layoutManager = layoutManager
         binding.rvPrincipal.setHasFixedSize(true)
@@ -61,7 +70,6 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        // Recuperar datos del Login si existen
         if (intent.hasExtra("user_data")) {
             currentUser = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 intent.getSerializableExtra("user_data", User::class.java)
@@ -79,16 +87,61 @@ class MainActivity : AppCompatActivity() {
         loadData()
     }
 
+    // --- FUNCIÓN ESPECIAL PARA CARGAR LA IMAGEN BLOQUEADA ---
+    // Esta función crea un cliente "hacker" que se disfraza de navegador Chrome
+    private fun cargarImagenDificil(url: String, imageView: ImageView) {
+
+        // 1. Creamos el cliente OkHttp con la cabecera User-Agent falsa
+        val clienteHacker = OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .addInterceptor { chain ->
+                val requestOriginal = chain.request()
+                val requestDisfrazada = requestOriginal.newBuilder()
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
+                    .build()
+                chain.proceed(requestDisfrazada)
+            }
+            .build()
+
+        // 2. Creamos una instancia de Picasso que use ese cliente
+        val picassoHacker = Picasso.Builder(this)
+            .downloader(OkHttp3Downloader(clienteHacker))
+            .listener { _, uri, exception ->
+                Log.e("IMG_HACKER", "Error cargando $uri: ${exception.message}")
+            }
+            .build()
+
+        // 3. Cargamos la imagen forzando la red (sin caché)
+        // Añadimos timestamp para evitar que la caché corrupta nos moleste
+        val urlFresca = "$url?t=${System.currentTimeMillis()}"
+
+        Log.d("IMG_HACKER", "Intentando descargar: $urlFresca")
+
+        picassoHacker
+            .load(urlFresca)
+            .fit()
+            .centerCrop()
+            .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
+            .into(imageView, object : Callback {
+                override fun onSuccess() {
+                    Log.d("IMG_HACKER", "¡ÉXITO! Imagen cargada correctamente.")
+                }
+
+                override fun onError(e: Exception?) {
+                    Log.e("IMG_HACKER", "Falló incluso con el truco: ${e?.message}")
+                }
+            })
+    }
+
     private fun setupHeaderInteractions() {
         updateHeadervisibility()
 
-        // Botón Login (Rojo)
         binding.header.btnLogin.setOnClickListener {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
         }
 
-        // Botón Flecha (Menú)
         binding.header.btnMenuDropdown.setOnClickListener { view ->
             if (miPopup == null || !miPopup!!.isShowing) {
                 mostrarMenuDesplegable(view)
@@ -103,29 +156,28 @@ class MainActivity : AppCompatActivity() {
             binding.header.btnLogin.visibility = View.GONE
             binding.header.layoutlogeduser.visibility = View.VISIBLE
 
-            // Poner nombre
-            binding.header.txtUserName.text = currentUser!!.name ?: "User"
+            binding.header.txtUserName.text = currentUser?.name ?: "Usuario"
+            binding.header.imgUserAvatar.setImageDrawable(null)
 
-            // Lógica para cargar la imagen (de lista o de string)
             var imageUrlToLoad: String? = null
 
-            if (!currentUser!!.images.isNullOrEmpty()) {
-                imageUrlToLoad = currentUser!!.images!![0].imageUrl
-            } else if (!currentUser!!.image.isNullOrEmpty()) {
-                imageUrlToLoad = currentUser!!.image
+            // Prioridad a la imagen del usuario
+            if (!currentUser?.images.isNullOrEmpty()) {
+                imageUrlToLoad = currentUser?.images!![0].imageUrl
+            } else if (!currentUser?.image.isNullOrEmpty()) {
+                imageUrlToLoad = currentUser?.image
             }
 
             if (!imageUrlToLoad.isNullOrEmpty()) {
-                // Si la URL es relativa, le pegamos la base
-                val fullUrl = if (imageUrlToLoad!!.startsWith("http")) imageUrlToLoad else BASE_URL + imageUrlToLoad
+                val cleanUrl = imageUrlToLoad!!.trim()
+                val fullUrl = if (cleanUrl.startsWith("http")) cleanUrl else BASE_URL + cleanUrl
 
-                Picasso.get()
-                    .load(fullUrl)
-                    .placeholder(R.drawable.descarga) // Tu imagen por defecto
-                    .error(R.drawable.descarga)
-                    .into(binding.header.imgUserAvatar)
+                // USAMOS LA FUNCIÓN ESPECIAL AQUÍ
+                cargarImagenDificil(fullUrl, binding.header.imgUserAvatar)
             } else {
-                binding.header.imgUserAvatar.setImageResource(R.drawable.descarga)
+                // Si el usuario no tiene foto, cargamos la de "Defecto" que me diste
+                // USAMOS LA FUNCIÓN ESPECIAL TAMBIÉN AQUÍ PORQUE ESA URL DABA PROBLEMAS
+                cargarImagenDificil(URL_DIFICIL, binding.header.imgUserAvatar)
             }
 
         } else {
@@ -148,9 +200,6 @@ class MainActivity : AppCompatActivity() {
         miPopup?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         miPopup?.elevation = 20f
 
-        // --- SOLO LAS OPCIONES QUE HAS DEJADO EN EL XML ---
-
-        // 1. Account -> Ir a Userview
         viewMenu.findViewById<View>(R.id.menuAccount).setOnClickListener {
             miPopup?.dismiss()
             val intent = Intent(this, Userview::class.java)
@@ -160,44 +209,33 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // 2. Favourites -> (Solo mensaje por ahora)
         viewMenu.findViewById<View>(R.id.menuFavourites).setOnClickListener {
             miPopup?.dismiss()
-            // CAMBIO AQUÍ: Navegar a FavouritesActivity
             val intent = Intent(this, Favourites::class.java)
             startActivity(intent)
         }
 
-        // 3. Search -> (Solo mensaje por ahora)
         viewMenu.findViewById<View>(R.id.menuSearch).setOnClickListener {
             miPopup?.dismiss()
-
             val intent = Intent(this, Search::class.java)
             startActivity(intent)
         }
 
-        // 4. Close Session -> Logout
         viewMenu.findViewById<View>(R.id.menuCloseSession).setOnClickListener {
             miPopup?.dismiss()
-
             isUserLoggedIn = false
             currentUser = null
             updateHeadervisibility()
-
             Toast.makeText(this, "Session closed", Toast.LENGTH_SHORT).show()
-
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
         }
 
-        // 5. Home -> Recargar datos
         viewMenu.findViewById<View>(R.id.menuHome).setOnClickListener {
             miPopup?.dismiss()
             loadData()
             Toast.makeText(this, "Home refreshed", Toast.LENGTH_SHORT).show()
         }
-
-        // --- HE ELIMINADO MESSAGES, MY ADS Y SELL PORQUE YA NO ESTÁN EN TU XML ---
 
         miPopup?.showAsDropDown(anchorView, -20, 10)
     }

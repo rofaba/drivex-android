@@ -1,5 +1,4 @@
 package com.example.proyectodrivex.Model
-
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -11,14 +10,14 @@ data class User(
 
     val email: String? = "",
 
+    @SerializedName("password", alternate = ["pass", "contraseña", "password_hash"])
     val password: String? = "",
 
-    // --- CAMBIO IMPORTANTE ---
-    // Ahora aceptamos una lista de imágenes, igual que en Car.
-    // Si la API sigue mandando "image" como String antiguo, lo mantenemos por compatibilidad.
-    @SerializedName("image")
+    // CAMBIO AQUÍ: Añadido "ProfileImage" como nombre principal
+    @SerializedName("profileImage", alternate = ["image", "imageUrl", "profile_image", "avatar"])
     val image: String? = null,
 
+    // Mantenemos la lista por si acaso el JSON devuelve array de imágenes
     @SerializedName("images")
     val images: List<UserImage>? = null
 

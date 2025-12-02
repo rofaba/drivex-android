@@ -6,13 +6,12 @@ import kotlinx.coroutines.withContext
 
 class UserProvider {
 
+    // TIENE QUE SER SUSPEND PARA USAR CORRUTINAS
     suspend fun getUsers(): List<User> {
+        // ESTA LÍNEA ES OBLIGATORIA: Mueve el trabajo a un hilo secundario (IO)
         return withContext(Dispatchers.IO) {
             try {
-                // Simplemente descargamos la lista.
-                // Si la API ya trae las imágenes dentro, no hay que hacer nada más.
                 val response = RetrofitClient.instance.getAllUsers()
-
                 if (response.isSuccessful) {
                     response.body() ?: emptyList()
                 } else {

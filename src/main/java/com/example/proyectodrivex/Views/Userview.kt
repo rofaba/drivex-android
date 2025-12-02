@@ -15,7 +15,7 @@ class Userview : AppCompatActivity() {
     private var currentUser: User? = null
 
     // URL base para las imágenes
-    private val BASE_URL = "https://drivex-backend-production.up.railway.app"
+    private val BASE_URL = "https://drivex-backend-lpl0.onrender.com"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -50,51 +50,51 @@ class Login : AppCompatActivity() {
                 val userProvider = UserProvider()
                 val users = userProvider.getUsers()
 
-                // Buscamos el usuario SOLO por nombre o email primero
+                // Buscar usuario por nombre o email
                 val userFound = users.find { user ->
                     user.email.equals(inputUser, ignoreCase = true) ||
                             user.name.equals(inputUser, ignoreCase = true)
                 }
 
                 if (userFound != null) {
-                    // AQUÍ ESTÁ LA MAGIA:
-                    // BCrypt coge tu contraseña plana (inputPass), la procesa y
-                    // comprueba si coincide con el hash del JSON (userFound.password)
+
+                    // --- CORRECCIÓN DE SEGURIDAD ---
+                    // Verificamos que la contraseña del servidor NO esté vacía antes de llamar a BCrypt
+                    val serverPassword = userFound.password
+
+                    if (serverPassword.isNullOrEmpty()) {
+                        Toast.makeText(this@Login, "Error: Este usuario tiene datos corruptos (sin contraseña)", Toast.LENGTH_LONG).show()
+                        return@launch
+                    }
+                    // --------------------------------
+
                     val passwordMatch = try {
-                        BCrypt.checkpw(inputPass, userFound.password)
+                        org.mindrot.jbcrypt.BCrypt.checkpw(inputPass, serverPassword)
                     } catch (e: IllegalArgumentException) {
-                        // Si la contraseña en el JSON no estaba hasheada (era texto plano "123")
-                        // este bloque permite que funcione también (útil para pruebas)
-                        inputPass == userFound.password
+                        // Si no es un hash válido, probamos comparación simple por si acaso
+                        inputPass == serverPassword
+                    } catch (e: Exception) {
+                        // Cualquier otro error de la librería
+                        false
                     }
 
                     if (passwordMatch) {
-                        // --- LOGIN CORRECTO ---
-                        Toast.makeText(
-                            this@Login,
-                            "Bienvenido, ${userFound.name}!",
-                            Toast.LENGTH_LONG
-                        ).show()
-
+                        Toast.makeText(this@Login, "Bienvenido, ${userFound.name}!", Toast.LENGTH_LONG).show()
                         val intent = Intent(this@Login, MainActivity::class.java)
                         intent.putExtra("user_data", userFound)
-                        intent.flags =
-                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                         finish()
                     } else {
-                        // Contraseña incorrecta
-                        Toast.makeText(this@Login, "Contraseña incorrecta", Toast.LENGTH_SHORT)
-                            .show()
+                        Toast.makeText(this@Login, "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    // Usuario no encontrado
                     Toast.makeText(this@Login, "Usuario no encontrado", Toast.LENGTH_SHORT).show()
                 }
 
             } catch (e: Exception) {
-                Toast.makeText(this@Login, "Error de conexión: ${e.message}", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(this@Login, "Error técnico: ${e.message}", Toast.LENGTH_SHORT).show()
+                e.printStackTrace()
             }
         }
     }
