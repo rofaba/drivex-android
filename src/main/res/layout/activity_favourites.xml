@@ -13,10 +13,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Mis Favoritos"
+        android:fontFamily="sans-serif-light"
+        android:text="Favourites"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
-        android:fontFamily="sans-serif-light"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

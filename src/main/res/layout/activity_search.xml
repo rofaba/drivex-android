@@ -25,11 +25,11 @@
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:iconifiedByDefault="false"
-            app:queryHint="Buscar coche..."
             app:queryBackground="@android:color/transparent"
-            app:searchIcon="@drawable/buscar"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+            app:queryHint="Search vehicle..."
+            app:searchIcon="@drawable/buscar" />
 
     </androidx.cardview.widget.CardView>
 
